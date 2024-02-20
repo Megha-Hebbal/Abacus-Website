@@ -160,6 +160,11 @@
 
 
 /*** Header ***/
+.Fancy{
+    font-family: 'Garamond', sans-serif;
+
+}
+
 .carousel-caption {
     top: 0;
     left: 0;
