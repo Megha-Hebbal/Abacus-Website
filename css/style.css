@@ -1,7 +1,7 @@
 /********** Template CSS **********/
 :root {
-    --primary: #3182e3;
-    --secondary: #d281f2;
+    --primary: #083873;
+    --secondary: #545454;
     --light: #F5F8F2;
     --dark: #252C30;
 }
@@ -165,6 +165,21 @@
 
 }
 
+/* Confetti */
+.confetti-container {
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .confetti {
+    position: fixed;
+    left: 0;
+    right: 0;
+    display: flex;
+  }
+
+
 .carousel-caption {
     top: 0;
     left: 0;
@@ -172,7 +187,7 @@
     bottom: 0;
     display: flex;
     align-items: center;
-    background: rgba(243, 177, 186, 0.7);
+    background: rgba(156, 174, 253, 0.7);
     z-index: 1;
 }
 
@@ -280,7 +295,7 @@
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
-    background: var(--primary);
+    background: #88b448;
     border-radius: 55px;
     box-shadow: 0 0 45px rgba(0, 0, 0, .15);
     font-size: 25px;
@@ -296,7 +311,7 @@
 
 /*** About ***/
 .video {
-    background: linear-gradient(rgba(136, 180, 78, .85), rgba(151, 251, 147, 0.85)), url(../img/video-bg.jpg) center center no-repeat;
+    background: linear-gradient(rgba(159, 176, 246, 0.85), rgba(70, 191, 243, 0.85)), url(../img/video-bg.jpg) center center no-repeat;
     background-size: cover;
 }
 
@@ -419,7 +434,7 @@
     width: 100px;
     height: 100px;
     border: 20px solid var(--light);
-    background: var(--primary);
+    background: #88b448;
     border-radius: 50px;
 }
 
@@ -470,7 +485,7 @@
 
 /*** Footer ***/
 .footer {
-    color: #B0B9AE;
+    color: #e3ddad;
 }
 
 .footer .btn.btn-link {
