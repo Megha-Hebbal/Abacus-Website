@@ -1,0 +1,8 @@
+{
+    "params":{
+        "local_server" : "True",
+        "local_uri" : "mysql://root:@localhost/abacus",
+        "production_uri" : "mysql://username:password@localhost/db_name",
+        "ig_url" : "https://www.instagram.com/abacus.sju?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    }
+}
