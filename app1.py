@@ -62,9 +62,43 @@ def contact():
     return render_template('contact.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html')
+    if(request.method=='GET'):
+        return render_template('login.html')
+    elif(request.method=='POST'):
+        return render_template('admin_login.html')
+
+
+@app.route('/add_new_event')
+def add_new_event():
+    return render_template('add_new_event.html')
+
+
+@app.route('/modify_event')
+def modify_event():
+    return render_template('modify_event.html')
+
+
+@app.route('/add_new_achievement')
+def add_new_achievement():
+    return render_template('add_new_achievement.html')
+
+
+@app.route('/modify_achievement')
+def modify_achievement():
+    return render_template('modify_achievement.html')
+
+
+@app.route('/add_new_member')
+def add_new_member():
+    return render_template('add_new_member.html')
+
+
+@app.route('/delete_member')
+def delete_member():
+    return render_template('delete_member.html')
+
 
 
 if __name__ == "__main__":

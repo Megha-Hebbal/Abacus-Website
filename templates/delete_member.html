@@ -75,7 +75,7 @@
     
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-2 text-dark mb-4 animated slideInDown">Admin Login</h1>
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">Delete Member</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -88,28 +88,34 @@
     <!-- Page Header End -->
 
 
-    <!-- Login Start -->
+    <!-- Delete Member Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                         <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                            <form action="/login" method="POST">
-                            <input type="hidden" name="access_key" value="f2f6ce1e-0667-4516-98d3-e2c90f422da5">
+                            <h3 class="mb-4">Delete Member</h3>
+                            <form action="/delete_member" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="Your Username">
-                                            <label for="username">Your Username</label>
+                                            <input type="text" class="form-control" id="membername" name="membername" placeholder="Member's Name">
+                                            <label for="membername">Member's Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Your Password">
-                                            <label for="password">Your Password</label>
+                                            <input type="text" class="form-control" id="designation" name="designation" placeholder="New Member's Designation">
+                                            <label for="designation">Member's Designation</label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary rounded-pill py-3 px-5">Submit</button>
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="year" name="year" placeholder="Year">
+                                            <label for="year">Year</label>
+                                        </div>
+                                    </div>
+                                <a class="btn btn-primary rounded-pill py-3 px-5" href="">Delete Member</a>
                                 </div>
                             </form>                    
                         </div>
@@ -117,7 +123,7 @@
             </div>
         </div>
     </div>
-    <!-- Login End -->
+    <!-- Add New Member End -->
         
 
     <!-- Footer Start -->
