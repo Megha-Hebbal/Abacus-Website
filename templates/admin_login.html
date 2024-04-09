@@ -70,6 +70,7 @@
     </div>
     <!-- Navbar End -->
 
+    
 
     <!-- Page Header Start -->
     
@@ -87,7 +88,12 @@
     </div>
     <!-- Page Header End -->
 
-
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
 
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container text-center">
@@ -121,7 +127,7 @@
                                             <div class="accordion-body">
                                                 <a href="\add_new_achievement" class="btn btn-primary rounded-pill py-2 px-4 m-2"> Add New Achievement <i class="fa fa-arrow-right ms-2"></i></a>
                                                 <br>
-                                                <a href="\modify_achievment" class="btn btn-primary rounded-pill py-2 px-4 m-2"> Modify Achievement <i class="fa fa-arrow-right ms-2"></i></a>
+                                                <a href="\modify_achievement" class="btn btn-primary rounded-pill py-2 px-4 m-2"> Modify Achievement <i class="fa fa-arrow-right ms-2"></i></a>
                                             </div>
                                           </div>
                                         </div>

@@ -75,7 +75,7 @@
     
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-2 text-dark mb-4 animated slideInDown">Add New Member</h1>
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">Modify Events</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -86,7 +86,8 @@
         </div>
     </div>
     <!-- Page Header End -->
-
+    
+    
 
     <!-- Add New Member Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -94,34 +95,40 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                         <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                            <h3 class="mb-4">Add New Member</h3>
-                            <form action="/add_new_member" method="POST">
+                            <h3 class="mb-4">Modify Event</h3>
+                            <form action="/modify_event" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="membername" name="membername" placeholder="New Member's Name">
-                                            <label for="membername">New Member's Name</label>
+                                            <input type="text" class="form-control" id="oldeventname" name="oldeventname" placeholder="Old Event's Name">
+                                            <label for="eventname">Old Event Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="designation" name="designation" placeholder="New Member's Designation">
-                                            <label for="designation">New Member's Designation</label>
+                                            <input type="text" class="form-control" id="eventname" name="eventname" placeholder="New Event's Name">
+                                            <label for="eventname">New Event Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="year" name="year" placeholder="Year">
-                                            <label for="year">Year</label>
+                                            <input type="text" class="form-control" id="description" name="description" placeholder="New Event's Description">
+                                            <label for="description">Event Description</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="quote" name="quote" placeholder="Member's Quote">
-                                            <label for="quote">Member's Quote</label>
+                                            <input type="date" class="form-control" id="Date" name="Date" placeholder="Date">
+                                            <label for="Date">Date</label>
                                         </div>
                                     </div>
-                                <a class="btn btn-primary rounded-pill py-3 px-5" href="">Add New Member</a>
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="link" name="link" placeholder="Registration Link">
+                                            <label for="link">Registration Link (for upcoming events)</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary rounded-pill py-3 px-5">Modify Member</button>
                                 </div>
                             </form>                    
                         </div>
