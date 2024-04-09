@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import func
 
 with open('templates/config.json', 'r') as c:
     params = json.load(c)["params"]
@@ -78,6 +79,7 @@ class Events(db.Model):
     description = db.Column(db.String(300),nullable=False)
     date = db.Column(db.String(20),nullable=False)
     registration_link = db.Column(db.String(50),nullable=True)
+    #img_id = db.Column(db.Sstring(20),nullable=False)
 
 #---------------------Add New Event--------------------
 app.config['SECRET_KEY'] = 'key'
@@ -135,6 +137,62 @@ def modifyevent():
 
     return render_template('/modify_event.html')
 
+
+class Achievements(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.String(100), nullable=False)
+    description=db.Column(db.String(1000), nullable= False)
+    img_id=db.Column(db.String(20),nullable=True)
+    Date=db.Column(db.Date,nullable=False)
+
+@app.route("/add_new_achievement", methods = ['GET','POST'])
+def addachievement():
+    if(request.method == 'POST'):
+        achievementname=request.form.get('achievementname')
+        achievementdescription=request.form.get('achievementdescription')
+        Date=request.form.get('Date')
+
+        entry=Achievements(name=achievementname, description=achievementdescription, Date=Date)
+        db.session.add(entry)
+        db.session.commit()
+        flash('Achievement added successfully','success')
+        return render_template('admin_login.html')
+
+    return render_template('add_new_achievement.html')
+
+@app.route('/modify_achievement',methods=['GET','POST'])
+def modifyachievement():
+    if(request.method == 'POST'):
+        oldachievement=request.form.get('oldachievement')
+        newachievement=request.form.get('newachievement')
+        adescription=request.form.get('achievementdescription')
+        date=request.form.get('Date')
+
+        try:
+            #  Fetch record based on old achievement title
+            entry = Achievements.query.filter_by(name=oldachievement).first()
+            
+            # check if entry contains a record
+            if entry:
+                entry.name=newachievement
+                entry.description=adescription
+                entry.Date=date
+
+                # Commit changes to the DB
+                db.session.commit()
+                flash('Successfully modified achievement!','success')
+                return render_template('admin_login.html')
+            else:
+                flash("Achievement not found!",'error')
+                return render_template('admin_login.html')
+        except Exception as e:
+            flash('Achievement not found!','error')
+            return render_template('admin_login.html')
+
+    return render_template('modify_achievement.html')
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html', params=params)
@@ -153,7 +211,8 @@ def events():
 
 @app.route('/achievements')
 def achievements():
-    return render_template('achievements.html')
+    Ach=Achievements.query.order_by(Achievements.Date.desc()).with_entities(Achievements.name, Achievements.img_id, Achievements.description,func.date_format(Achievements.Date, "%M, %Y").label("formatted_date")).all()
+    return render_template('achievements.html', Ach=Ach)
 
 
 @app.route('/members')
