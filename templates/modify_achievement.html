@@ -70,12 +70,11 @@
     </div>
     <!-- Navbar End -->
 
-
     <!-- Page Header Start -->
     
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-2 text-dark mb-4 animated slideInDown">Add New Member</h1>
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">Modify Achievement </h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -87,41 +86,43 @@
     </div>
     <!-- Page Header End -->
 
-
+    
     <!-- Add New Member Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                         <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                            <h3 class="mb-4">Add New Member</h3>
-                            <form action="/add_new_member" method="POST">
+                            <h3 class="mb-4">Modify Achievement</h3>
+                            <form action="/modify_achievement" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="membername" name="membername" placeholder="New Member's Name">
-                                            <label for="membername">New Member's Name</label>
+                                            <input type="text" class="form-control" id="oldachievement" name="oldachievement" placeholder="Add Achievement">
+                                            <label for="achievementname">Old Title</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="designation" name="designation" placeholder="New Member's Designation">
-                                            <label for="designation">New Member's Designation</label>
+                                            <input type="text" class="form-control" id="newachievement" name="newachievement" placeholder="Add Achievement">
+                                            <label for="achievementname">New Title</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="year" name="year" placeholder="Year">
-                                            <label for="year">Year</label>
+                                            <input type="date" class="form-control" id="Date" name="Date" placeholder="Date">
+                                            <label for="Date">Add Date</label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="quote" name="quote" placeholder="Member's Quote">
-                                            <label for="quote">Member's Quote</label>
+                                            <input type="text" class="form-control" id="achievementdescription" name="achievementdescription" placeholder="Add Description">
+                                            <label for="designation">Add Description</label>
                                         </div>
                                     </div>
-                                <a class="btn btn-primary rounded-pill py-3 px-5" href="">Add New Member</a>
+                                    
+                                    
+                                <button type='submit' class="btn btn-primary rounded-pill py-3 px-5" href="">Modify Achievement </button>
                                 </div>
                             </form>                    
                         </div>
