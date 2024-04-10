@@ -90,11 +90,12 @@
     <!-- TODO: Fetch it using forloop from database-->
     <!-- Article Start -->
     {% for achievement in Ach %}
+    {% set fname = 'img/' + achievement.img_id %}
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.3s">
-                    <img class="img-fluid" src="{{ url_for('static', filename='img/article.jpg')}}" alt="">
+                    <img class="img-fluid" src="{{ url_for('static', filename=fname)}}" alt="">
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.8s">
                     <div class="section-title">

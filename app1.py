@@ -27,7 +27,7 @@ class Members(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     designation = db.Column(db.String(50), nullable=False)
-    img_id = db.Column(db.String(20), nullable=True)
+    img_id = db.Column(db.String(40), nullable=True)
     year = db.Column(db.String(20), nullable=False)
     quote = db.Column(db.String(300), nullable=True)
 
@@ -142,7 +142,7 @@ class Achievements(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(100), nullable=False)
     description=db.Column(db.String(1000), nullable= False)
-    img_id=db.Column(db.String(20),nullable=True)
+    img_id=db.Column(db.String(40),nullable=True)
     Date=db.Column(db.Date,nullable=False)
 
 @app.route("/add_new_achievement", methods = ['GET','POST'])
