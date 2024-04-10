@@ -90,8 +90,18 @@ def modify_achievement():
     return render_template('modify_achievement.html')
 
 
-@app.route('/add_new_member')
-def add_new_member():
+@app.route('/add_new_member',methods = ['GET','POST'])
+def add_member():
+    if(request.method == "POST"):
+        membername = request.form.get('membername')
+        designation = request.form.get('designation')
+        year = request.form.get('year')
+        quote = request.form.get('quote')
+        
+        entry = Members(name=membername, designation=designation, year=year, quote=quote)
+        db.session.add(entry)
+        db.session.commit()  
+      
     return render_template('add_new_member.html')
 
 
