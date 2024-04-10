@@ -79,7 +79,7 @@ class Events(db.Model):
     description = db.Column(db.String(300),nullable=False)
     date = db.Column(db.String(20),nullable=False)
     registration_link = db.Column(db.String(50),nullable=True)
-    #img_id = db.Column(db.Sstring(20),nullable=False)
+    img_id = db.Column(db.String(50),nullable=False)
 
 #---------------------Add New Event--------------------
 app.config['SECRET_KEY'] = 'key'
@@ -252,21 +252,6 @@ def add_new_achievement():
 @app.route('/modify_achievement')
 def modify_achievement():
     return render_template('modify_achievement.html')
-
-
-@app.route('/add_new_member',methods = ['GET','POST'])
-def add_member():
-    if(request.method == "POST"):
-        membername = request.form.get('membername')
-        designation = request.form.get('designation')
-        year = request.form.get('year')
-        quote = request.form.get('quote')
-        
-        entry = Members(name=membername, designation=designation, year=year, quote=quote)
-        db.session.add(entry)
-        db.session.commit()  
-      
-    return render_template('add_new_member.html')
 
 
 @app.route('/delete_member')
