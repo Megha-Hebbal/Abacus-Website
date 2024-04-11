@@ -89,34 +89,13 @@
 
     <!-- TODO: Fetch it using forloop from database-->
     <!-- Article Start -->
+    {% for achievement in Ach %}
+    {% set fname = 'img/' + achievement.img_id %}
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.3s">
-                    <img class="img-fluid" src="{{ url_for('static', filename='img/article.jpg')}}" alt="">
-                </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.8s">
-                    <div class="section-title">
-                        <p class="fs-5 fw-medium fst-italic text-primary">A glimpse into our association's impactful achievements.</p>
-                        <h1 class="display-6">2023 Faculty Conference on Research and Teaching Excellence</h1>
-                    </div>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna. Tempor erat elitr rebum at clita.</p>
-                    <a href="#" class="btn btn-primary rounded-pill py-3 px-5">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Article End -->
-
-
-
-    <!-- Article Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.3s">
-                    <img class="img-fluid" src="{{ url_for('static', filename='img/article.jpg')}}" alt="">
+                    <img class="img-fluid" src="{{ url_for('static', filename=fname)}}" alt="">
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.8s">
                     <div class="section-title">

@@ -35,7 +35,7 @@ class Members(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     designation = db.Column(db.String(50), nullable=False)
-    img_id = db.Column(db.String(20), nullable=True)
+    img_id = db.Column(db.String(40), nullable=True)
     year = db.Column(db.String(20), nullable=False)
     quote = db.Column(db.String(300), nullable=True)
 
@@ -91,7 +91,7 @@ class Events(db.Model):
     description = db.Column(db.String(300),nullable=False)
     date = db.Column(db.String(20),nullable=False)
     registration_link = db.Column(db.String(50),nullable=True)
-    #img_id = db.Column(db.Sstring(20),nullable=False)
+    img_id = db.Column(db.Sstring(20),nullable=False)
 
 #---------------------Add New Event--------------------
 
