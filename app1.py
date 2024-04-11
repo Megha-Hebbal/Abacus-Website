@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField,SubmitField, Form, validators, PasswordField
+from wtforms.validators import DataRequired
+
 from flask_sqlalchemy import SQLAlchemy
 import json
-from datetime import datetime
+from datetime import datetime 
 
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import func
@@ -9,9 +13,13 @@ from sqlalchemy import func
 with open('templates/config.json', 'r') as c:
     params = json.load(c)["params"]
 
+#app = Flask(__name__, static_folder='static/img')
+
 # create the app
 app = Flask(__name__)
 db = SQLAlchemy()
+
+app.config['SECRET_KEY'] = 'key'
 
 # configure the SQLite database, relative to the app instance folder
 if(params["local_server"]):
@@ -35,7 +43,9 @@ class Members(db.Model):
 @app.route('/add_new_member',methods = ['GET','POST'])
 def add_member():
     if(request.method == "POST"):
+        
         membername = request.form.get('membername')
+        
         designation = request.form.get('designation')
         year = request.form.get('year')
         quote = request.form.get('quote')
@@ -48,6 +58,8 @@ def add_member():
         return render_template('/admin_login.html')
       
     return render_template('add_new_member.html')
+
+
 
 @app.route('/delete_member', methods=['GET','POST'])
 def deletemembers():
@@ -82,7 +94,7 @@ class Events(db.Model):
     #img_id = db.Column(db.Sstring(20),nullable=False)
 
 #---------------------Add New Event--------------------
-app.config['SECRET_KEY'] = 'key'
+
 
 
 @app.route('/add_new_event',methods = ['GET','POST'])
@@ -205,6 +217,7 @@ def about():
 
 @app.route('/events')
 def events():
+    
     all_events = Events.query.order_by(Events.date.desc()).all()
     return render_template('events.html', all_events = all_events)
 
@@ -226,12 +239,31 @@ def contact():
     return render_template('contact.html')
 
 
+# Create a Form Class
+class NamerForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password",validators = [DataRequired()])
+    submit = SubmitField("Submit")
+
+# Create Name Page
 @app.route('/login', methods=['GET','POST'])
 def login():
-    if(request.method=='GET'):
-        return render_template('login.html')
-    elif(request.method=='POST'):
-        return render_template('admin_login.html')
+    username = None
+    password = None
+    form = NamerForm()
+    # Validate Form
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        # form.username.data=''
+        # form.password.data=''
+        # Check if the credentials are 'admin' and 'password'
+        if username == "admin" and password == "password":
+            return render_template("admin_login.html")  # Render admin_login.html if credentials match
+        else:
+            flash("Invalid username or password. Please try again.", "error")  # Flash an error message
+    return render_template("login.html", form=form)
+
 
 
 @app.route('/add_new_event')
