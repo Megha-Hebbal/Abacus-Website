@@ -63,7 +63,7 @@ class Achievements(db.Model):
 # Create a Form Class
 class NamerForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Password",validators = [DataRequired()])
+    password = PasswordField("Password", validators = [DataRequired()])
     submit = SubmitField("Submit")
 
 
@@ -121,8 +121,10 @@ def login():
                 return render_template("admin_login.html")  # Render admin_login.html if credentials match
             else:
                 flash("Invalid username or password. Please try again.", "error")  # Flash an error message
+                return render_template("login.html", form=form)
+    elif request.method=='GET':
+        return render_template("login.html", form=form)
     
-    return render_template("login.html", form=form)
 
 
 #---------------------Add New Member--------------------
