@@ -40,48 +40,6 @@ class Members(db.Model):
     quote = db.Column(db.String(300), nullable=True)
 
 
-@app.route('/add_new_member',methods = ['GET','POST'])
-def add_member():
-    if(request.method == "POST"):
-        
-        membername = request.form.get('membername')
-        
-        designation = request.form.get('designation')
-        year = request.form.get('year')
-        quote = request.form.get('quote')
-        
-        entry = Members(name=membername, designation=designation, year=year, quote=quote)
-        db.session.add(entry)
-        db.session.commit()  
-
-        flash('Member added successfully','success')
-        return render_template('/admin_login.html')
-      
-    return render_template('add_new_member.html')
-
-
-
-@app.route('/delete_member', methods=['GET','POST'])
-def deletemembers():
-    if(request.method == 'POST'):
-        membername=request.form.get('membername')
-        designation=request.form.get('designation')
-        year=request.form.get('year')
-
-        try:
-            entry = db.session.execute(db.select(Members).filter_by(name=membername, designation=designation, year=year)).scalar_one()
-
-            db.session.delete(entry)
-            db.session.commit()
-            flash('Member deleted successfully','success')
-            return render_template('/admin_login.html')
-            
-        except Exception as e:
-            flash ('Record not found','error')
-            return render_template('/admin_login.html')
-
-    return render_template('delete_member.html')
-
 # Attributes for events table
 # id (int(11)), name(varchar(50)), description(text), date(datetime(6)), registration_link(varchar(60)) 
 class Events(db.Model):
@@ -91,63 +49,7 @@ class Events(db.Model):
     description = db.Column(db.String(300),nullable=False)
     date = db.Column(db.String(20),nullable=False)
     registration_link = db.Column(db.String(50),nullable=True)
-    img_id = db.Column(db.Sstring(20),nullable=False)
-
-#---------------------Add New Event--------------------
-
-
-
-@app.route('/add_new_event',methods = ['GET','POST'])
-def add_event():
-    if(request.method == "POST"):
-        name = request.form.get('eventname')
-        description = request.form.get('description')
-        date = request.form.get('Date')
-        link = request.form.get('link')
-        
-        entry = Events(name=name, description=description, date=date, registration_link=link)
-        db.session.add(entry)
-        db.session.commit()  
-        flash('Event added successfully!', 'success')
-
-        return render_template('/admin_login.html')
-
-    return render_template('add_new_event.html')
-
-#--------------Modify Events------------------
-
-@app.route('/modify_event', methods=['GET','POST'])
-def modifyevent():
-    if(request.method == 'POST'):
-        oldname=request.form.get('oldeventname')
-        newname=request.form.get('eventname')
-        description=request.form.get('description')
-        date=request.form.get('Date')
-        link=request.form.get('link')
-
-        try:
-            #Retrieving data from database based on oldname
-            event = Events.query.filter_by(name=oldname).first()
-
-            # Update the attributes of the event with new values
-            if event:
-                event.name = newname
-                event.description = description
-                event.date = date
-                event.link = link
-
-                # Commit the changes to the database
-                db.session.commit()
-                flash('Event updated successfully!', 'success')
-                return render_template('/admin_login.html')
-            # else:
-            #     flash('Event not found!', 'error')
-            
-        except Exception as e:
-            print ('Record not found')
-            return render_template('/admin_login.html')
-
-    return render_template('/modify_event.html')
+    img_id = db.Column(db.String(20),nullable=False)
 
 
 class Achievements(db.Model):
@@ -157,51 +59,13 @@ class Achievements(db.Model):
     img_id=db.Column(db.String(20),nullable=True)
     Date=db.Column(db.Date,nullable=False)
 
-@app.route("/add_new_achievement", methods = ['GET','POST'])
-def addachievement():
-    if(request.method == 'POST'):
-        achievementname=request.form.get('achievementname')
-        achievementdescription=request.form.get('achievementdescription')
-        Date=request.form.get('Date')
 
-        entry=Achievements(name=achievementname, description=achievementdescription, Date=Date)
-        db.session.add(entry)
-        db.session.commit()
-        flash('Achievement added successfully','success')
-        return render_template('admin_login.html')
+# Create a Form Class
+class NamerForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password",validators = [DataRequired()])
+    submit = SubmitField("Submit")
 
-    return render_template('add_new_achievement.html')
-
-@app.route('/modify_achievement',methods=['GET','POST'])
-def modifyachievement():
-    if(request.method == 'POST'):
-        oldachievement=request.form.get('oldachievement')
-        newachievement=request.form.get('newachievement')
-        adescription=request.form.get('achievementdescription')
-        date=request.form.get('Date')
-
-        try:
-            #  Fetch record based on old achievement title
-            entry = Achievements.query.filter_by(name=oldachievement).first()
-            
-            # check if entry contains a record
-            if entry:
-                entry.name=newachievement
-                entry.description=adescription
-                entry.Date=date
-
-                # Commit changes to the DB
-                db.session.commit()
-                flash('Successfully modified achievement!','success')
-                return render_template('admin_login.html')
-            else:
-                flash("Achievement not found!",'error')
-                return render_template('admin_login.html')
-        except Exception as e:
-            flash('Achievement not found!','error')
-            return render_template('admin_login.html')
-
-    return render_template('modify_achievement.html')
 
 
 
@@ -239,61 +103,175 @@ def contact():
     return render_template('contact.html')
 
 
-# Create a Form Class
-class NamerForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Password",validators = [DataRequired()])
-    submit = SubmitField("Submit")
-
 # Create Name Page
 @app.route('/login', methods=['GET','POST'])
 def login():
     username = None
     password = None
     form = NamerForm()
-    # Validate Form
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        # form.username.data=''
-        # form.password.data=''
-        # Check if the credentials are 'admin' and 'password'
-        if username == "admin" and password == "password":
-            return render_template("admin_login.html")  # Render admin_login.html if credentials match
-        else:
-            flash("Invalid username or password. Please try again.", "error")  # Flash an error message
+    if request.method=='POST':
+        # Validate Form
+        if form.validate_on_submit():
+            username = form.username.data
+            password = form.password.data
+            # form.username.data=''
+            # form.password.data=''
+            # Check if the credentials are 'admin' and 'password'
+            if username == "admin" and password == "password":
+                return render_template("admin_login.html")  # Render admin_login.html if credentials match
+            else:
+                flash("Invalid username or password. Please try again.", "error")  # Flash an error message
+    
     return render_template("login.html", form=form)
 
 
+#---------------------Add New Member--------------------
+@app.route('/add_new_member',methods = ['GET','POST'])
+def add_member():
+    if(request.method == "POST"):
+        
+        membername = request.form.get('membername')
+        
+        designation = request.form.get('designation')
+        year = request.form.get('year')
+        quote = request.form.get('quote')
+        
+        entry = Members(name=membername, designation=designation, year=year, quote=quote)
+        db.session.add(entry)
+        db.session.commit()  
 
-@app.route('/add_new_event')
-def add_new_event():
-    return render_template('add_new_event.html')
-
-
-@app.route('/modify_event')
-def modify_event():
-    return render_template('modify_event.html')
-
-
-@app.route('/add_new_achievement')
-def add_new_achievement():
-    return render_template('add_new_achievement.html')
-
-
-@app.route('/modify_achievement')
-def modify_achievement():
-    return render_template('modify_achievement.html')
-
-
-@app.route('/add_new_member')
-def add_new_member():
+        flash('Member added successfully','success')
+        return render_template('/admin_login.html')
+      
     return render_template('add_new_member.html')
 
 
-@app.route('/delete_member')
-def delete_member():
+#---------------------Delete Member--------------------
+@app.route('/delete_member', methods=['GET','POST'])
+def deletemembers():
+    if(request.method == 'POST'):
+        membername=request.form.get('membername')
+        designation=request.form.get('designation')
+        year=request.form.get('year')
+
+        try:
+            entry = db.session.execute(db.select(Members).filter_by(name=membername, designation=designation, year=year)).scalar_one()
+
+            db.session.delete(entry)
+            db.session.commit()
+            flash('Member deleted successfully','success')
+            return render_template('/admin_login.html')
+            
+        except Exception as e:
+            flash ('Record not found','error')
+            return render_template('/admin_login.html')
+
     return render_template('delete_member.html')
+
+
+#---------------------Add New Event--------------------
+@app.route('/add_new_event',methods = ['GET','POST'])
+def add_event():
+    if(request.method == "POST"):
+        name = request.form.get('eventname')
+        description = request.form.get('description')
+        date = request.form.get('Date')
+        link = request.form.get('link')
+        
+        entry = Events(name=name, description=description, date=date, registration_link=link)
+        db.session.add(entry)
+        db.session.commit()  
+        flash('Event added successfully!', 'success')
+
+        return render_template('/admin_login.html')
+
+    return render_template('add_new_event.html')
+
+
+#--------------Modify Events------------------
+@app.route('/modify_event', methods=['GET','POST'])
+def modifyevent():
+    if(request.method == 'POST'):
+        oldname=request.form.get('oldeventname')
+        newname=request.form.get('eventname')
+        description=request.form.get('description')
+        date=request.form.get('Date')
+        link=request.form.get('link')
+
+        try:
+            #Retrieving data from database based on oldname
+            event = Events.query.filter_by(name=oldname).first()
+
+            # Update the attributes of the event with new values
+            if event:
+                event.name = newname
+                event.description = description
+                event.date = date
+                event.link = link
+
+                # Commit the changes to the database
+                db.session.commit()
+                flash('Event updated successfully!', 'success')
+                return render_template('/admin_login.html')
+            # else:
+            #     flash('Event not found!', 'error')
+            
+        except Exception as e:
+            print ('Record not found')
+            return render_template('/admin_login.html')
+
+    return render_template('/modify_event.html')
+
+
+#---------------------Add New Achievement--------------------
+@app.route("/add_new_achievement", methods = ['GET','POST'])
+def addachievement():
+    if(request.method == 'POST'):
+        achievementname=request.form.get('achievementname')
+        achievementdescription=request.form.get('achievementdescription')
+        Date=request.form.get('Date')
+
+        entry=Achievements(name=achievementname, description=achievementdescription, Date=Date)
+        db.session.add(entry)
+        db.session.commit()
+        flash('Achievement added successfully','success')
+        return render_template('admin_login.html')
+
+    return render_template('add_new_achievement.html')
+
+
+#---------------------Modify Achievement--------------------
+@app.route('/modify_achievement',methods=['GET','POST'])
+def modifyachievement():
+    if(request.method == 'POST'):
+        oldachievement=request.form.get('oldachievement')
+        newachievement=request.form.get('newachievement')
+        adescription=request.form.get('achievementdescription')
+        date=request.form.get('Date')
+
+        try:
+            #  Fetch record based on old achievement title
+            entry = Achievements.query.filter_by(name=oldachievement).first()
+            
+            # check if entry contains a record
+            if entry:
+                entry.name=newachievement
+                entry.description=adescription
+                entry.Date=date
+
+                # Commit changes to the DB
+                db.session.commit()
+                flash('Successfully modified achievement!','success')
+                return render_template('admin_login.html')
+            else:
+                flash("Achievement not found!",'error')
+                return render_template('admin_login.html')
+        except Exception as e:
+            flash('Achievement not found!','error')
+            return render_template('admin_login.html')
+
+    return render_template('modify_achievement.html')
+
 
 
 
